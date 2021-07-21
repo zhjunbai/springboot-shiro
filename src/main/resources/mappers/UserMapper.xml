@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shiro_learn.dao.UserDao">
+    <resultMap id="userMap" type="com.example.shiro_learn.entity.User">
+        <result column="uid" jdbcType="INTEGER" property="id" />
+        <result column="uname" jdbcType="VARCHAR" property="username" />
+        <result column="upass" jdbcType="VARCHAR" property="password" />
+    </resultMap>
+
+    <select id="findUserById" resultMap="userMap">
+        SELECT tb_user.id uid,
+               tb_user.username uname,
+               tb_user.`password` upass
+        FROM tb_user
+        WHERE tb_user.id=#{id}
+    </select>
+    <select id="findUserByUsername" resultMap="userMap">
+        SELECT tb_user.id uid,
+               tb_user.username uname,
+               tb_user.`password` upass
+        FROM tb_user
+        WHERE tb_user.username=#{username}
+    </select>
+</mapper>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="/js/jquery.js"></script>
+<form action="">
+    <input type="text" name="username" id="username"/>
+    <input type="password" name="password" id="password"/>
+    <input type="button" value="submit" onclick="login()"/>
+    <input type="button" value="register" onclick="register()"/>
+</form>
+<script>
+    function login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        // var age = $("#age").val();
+        $.ajax({
+            //请求路径
+            url : "/user/login",
+            //请求类型
+            type : "post",
+            //data表示发送的数据
+            data : JSON.stringify({
+                username : username,
+                password : password,
+            }), //定义发送请求的数据格式为JSON字符串
+            // result:JSON.parse()({
+            //     code:null,
+            //     msg:null,
+            //     data:null,
+            // }),
+            contentType : "application/json;charset=utf-8",
+            //定义回调响应的数据格式为JSON字符串，该属性可以省略
+            dataType : "json",
+            //成功响应的结果
+            success : function(result) {
+                // var jsonres=JSON.parse(result);
+                if (result["result"]==="success") {
+                    alert("输入的用户名：" + result["user"].username + "，密码：" + result["user"].password);
+                }
+            }
+        });
+    }
+    function register() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        // var age = $("#age").val();
+        $.ajax({
+            //请求路径
+            url : "/user/add",
+            //请求类型
+            type : "post",
+            //data表示发送的数据
+            data : JSON.stringify({
+                username : username,
+                password : password,
+            }), //定义发送请求的数据格式为JSON字符串
+            // result:JSON.parse()({
+            //     code:null,
+            //     msg:null,
+            //     data:null,
+            // }),
+            contentType : "application/json;charset=utf-8",
+            //定义回调响应的数据格式为JSON字符串，该属性可以省略
+            dataType : "json",
+            //成功响应的结果
+            success : function(result) {
+                // var jsonres=JSON.parse(result);
+                if (result["result"]==="success") {
+                    alert("输入的用户名：" + result["user"].username + "，密码：" + result["user"].password);
+                }else{
+                    alert(result["error"].message)
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

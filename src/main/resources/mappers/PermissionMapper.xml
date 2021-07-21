@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shiro_learn.dao.PermissionDao">
+    <select id="findPermissionsByUserId" resultType="java.lang.String">
+        SELECT tb_permission.permission ppermission
+        FROM tb_permission
+                 LEFT JOIN tb_user_permission
+                           ON tb_user_permission.permission_id=tb_permission.id
+        WHERE tb_user_permission.user_id=#{id}
+    </select>
+    <select id="findPermissionsByUsername" resultType="java.lang.String">
+        SELECT tb_permission.permission ppermission
+        FROM tb_permission
+                 LEFT JOIN tb_user_permission
+                           ON tb_user_permission.permission_id=tb_permission.id
+                 LEFT JOIN tb_user
+                           ON tb_user_permission.user_id=tb_user.id
+        WHERE tb_user.username=#{username}
+    </select>
+    <select id="findPermissionByName" resultType="java.lang.String">
+        SELECT tb_permission.permission ppermission
+        FROM tb_permission
+        WHERE tb_permission.permission=#{permission}
+    </select>
+</mapper>
